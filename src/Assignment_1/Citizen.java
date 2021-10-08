@@ -6,6 +6,7 @@ public class Citizen {
     private int id;
     private String status;
     private boolean eligible;
+    private Vaccine current;
 
     public Citizen(String name,int age, int id){
 
@@ -30,5 +31,9 @@ public class Citizen {
 
     public boolean isEligible() {
         return eligible;
+    }
+
+    public void setCurrent(Vaccine current) {
+        this.current = current;
     }
 }
