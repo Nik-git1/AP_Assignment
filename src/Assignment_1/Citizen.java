@@ -3,12 +3,12 @@ package Assignment_1;
 public class Citizen {
     private String name;
     private int age;
-    private int id;
+    private long id;
     private String status;
     private boolean eligible;
     private Vaccine current;
 
-    public Citizen(String name,int age, int id){
+    public Citizen(String name,int age, long id){
 
         this.status="NOT VACCINATED";
         this.name = name;
