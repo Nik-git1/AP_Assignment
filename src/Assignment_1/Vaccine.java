@@ -1,7 +1,7 @@
 package Assignment_1;
 
 public class Vaccine {
-    public static String name;
+    public String name;
     private int no_of_doses;
     private int gap_in_doses;
 
@@ -12,7 +12,17 @@ public class Vaccine {
         this.gap_in_doses= gap_in_doses;
     }
 
-    public static String getName() {
+    public int getNo_of_doses() {
+        return no_of_doses;
+    }
+
+    public int getGap_in_doses() {
+        return gap_in_doses;
+    }
+
+    public String getName() {
         return name;
     }
+
+
 }

@@ -28,6 +28,9 @@ public class Main {
         Slots a = new Slots(123,1,10,vac); */
         Scanner sc = new Scanner(System.in);
         List<Vaccine> vaclist = new ArrayList<Vaccine>();
+        List<Hospital> hoslist = new ArrayList<Hospital>();
+        List<Citizen> citilist = new ArrayList<Citizen>();
+        List<Slots> slotlist = new ArrayList<Slots>();
 
 
         int exit =0;
@@ -50,10 +53,12 @@ public class Main {
                     String vac=sc.next();
                     System.out.println("Number of Doses");
                     int dose=sc.nextInt();
+                    //dont ask for gap in 1 no of doses
                     System.out.println("Gaps beween Doses");
                     int gap=sc.nextInt();
                     Vaccine vax= new Vaccine(vac,dose,gap);
                     vaclist.add(vax);
+                    System.out.println("Vaccine Name :"+ vac +", Number of Doses: "+dose +" ,Gap Between Doses: "+gap);
 
                     break;
                 case 2:
@@ -61,6 +66,12 @@ public class Main {
                     String h_name=sc.next();
                     System.out.println("Pincode:");
                     int pin= sc.nextInt();
+                    Random rnd = new Random();
+                    int number = rnd.nextInt(999999);
+                    Hospital hos= new Hospital(h_name,pin,number);
+                    hoslist.add(hos);
+
+                    System.out.println("Hospital Name:" + h_name + ", Pincode:"+pin +"Unique id:"+ number );
                     break;
                 case 3:
                     System.out.println("Citizen Name:");
@@ -69,6 +80,12 @@ public class Main {
                     int age = sc .nextInt();
                     System.out.println("Unique ID");
                     long id = sc.nextLong();
+                    System.out.println("Citizen Name:"+name+", Age:"+age +", Unique ID:"+id);
+                    if (age>17){
+                    Citizen citi = new Citizen(name,age,id);
+                    citilist.add(citi);
+                    }else
+                        System.out.println("Only above 18 are allowed");
 
                     break;
                 case 4:
@@ -82,8 +99,14 @@ public class Main {
                         System.out.println("Enter quantity:");
                         int quantity=sc.nextInt();
                         System.out.println("Select vaccine:");
-                        //vaccine list here
-                        //make object
+                        for (int j =0 ;i< vaclist.size();i++){
+                            System.out.println( i +" "+ vaclist.get(j).getName());
+                        }
+                        int vacchoice=sc.nextInt();
+                        Slots slot = new Slots(hid,day,quantity, vaclist.get(vacchoice));
+                        slotlist.add(slot);
+
+                        System.out.println("Slot added by Hospital "+hid+"for Day "+day+"Available Quantity: "+quantity+"of Vaccine "+vaclist.get(vacchoice));
                     }
                     break;
                 case 5:
@@ -98,27 +121,64 @@ public class Main {
                     if (search==1){
                         System.out.println("Enter pincode:");
                         int user_pin= sc.nextInt();
-                        //call hospital list
+                        for (int i =0; i<hoslist.size();i++){
+                            Hospital h = hoslist.get(i);
+                            if (h.getPincode()==user_pin){
+                                System.out.println(h.getPincode()+" "+h.getName());
+                            }
+                        }
                         System.out.println("Enter hospital ID:");
                         int user_hid= sc.nextInt();
+                        for (int i=0;i<slotlist.size();i++){
+                            Slots s = slotlist.get(i);
+                            if (s.getId()==user_hid){
+                                if (s.getQuantity()>0) {
+                                    System.out.println(i + " -> Day: " + s.getDay() + " Available Qty: " + s.getQuantity() + " Vaccine: " + s.getVaccine());
+                                }
+                            }
+                        }
                         System.out.println("Choose slot:");
+                        int user_slot= sc.nextInt();
+                        Slots s = slotlist.get(user_slot);
+                        for (int i = 0;i<citilist.size();i++){
+                            Citizen c = citilist.get(i);
+                            if(pid==c.getId()){
+                                c.vaccinate(s.getVaccine(),s.getDay());
+                                s.setQuantity();
+                            }
+                        }
                     }
+                    System.out.println("accinated");
                     break;
                 case 6:
                     System.out.println("Enter Hospital ID:");
                     int usr_hid= sc.nextInt();
+                    for (int i = 0;i<slotlist.size();i++){
+                        Slots s = slotlist.get(i);
+                        if(s.getId()==usr_hid){
+                            System.out.println("Day :"+ s.getDay()+"Vaccine:"+s.getVaccine()+" Available Qty:"+ s.getQuantity());
+                        }
+                    }
 
                     break;
                 case 7:
                     System.out.println("Enter Patient ID:");
                     long usr_pid=sc .nextLong();
+                    for (int i = 0; i< citilist.size();i++){
+                        Citizen c = citilist.get(i);
+                        if (c.getId()==usr_pid){
+                            c.vac_status();
+                        }
+                    }
                     break;
                 case 8:
                     exit=1;
                     break;
             }
 
-
+        }
+        for (int i =0 ;i< vaclist.size();i++){
+            System.out.println(vaclist.get(i).getNo_of_doses()+" "+ vaclist.get(i).getName());
         }
 
 

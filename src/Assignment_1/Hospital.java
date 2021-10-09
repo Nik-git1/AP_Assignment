@@ -7,9 +7,8 @@ public class Hospital {
     private int pincode;
     private int id;
 
-    public Hospital(String name , int pincode){
-        Random rnd = new Random();
-        id = rnd.nextInt(999999);
+    public Hospital(String name , int pincode, int id){
+        this.id = id;
         this.name=name;
         this.pincode=pincode;
     }
@@ -18,4 +17,7 @@ public class Hospital {
         return pincode;
     }
 
+    public String getName() {
+        return name;
+    }
 }

@@ -14,9 +14,25 @@ public class Slots {
         this.day=day;
         this.vaccine= vaccine;
 
-        System.out.println( id +" "+ quantity+ " " + day +" "+ vaccine.getName());
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public int getQuantity() {
+        return quantity;
+    }
 
+    public int getDay() {
+        return day;
+    }
+
+    public Vaccine getVaccine() {
+        return vaccine;
+    }
+
+    public void setQuantity() {
+        quantity-=1;
+    }
 }
