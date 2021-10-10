@@ -13,6 +13,10 @@ public class Hospital {
         this.pincode=pincode;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public int getPincode() {
         return pincode;
     }

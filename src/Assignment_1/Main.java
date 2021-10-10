@@ -10,30 +10,14 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-       /* Vaccine vac= new Vaccine("covin",2,1 );
-        Vaccine vac2= new Vaccine("cova",1,0 );
-        List<Vaccine> vaclist = new ArrayList<Vaccine>();
-        vaclist.add(vac);
-        vaclist.add(vac2);
-        Citizen nikhil = new Citizen("nikhil",19,123);
-        Citizen shiv = new Citizen("shivam",17,23);
-        List<Citizen> person = new ArrayList<Citizen>();
-        person.add(nikhil);
-        person.add(shiv);
-        Hospital max = new Hospital("max",1);
-        Hospital apollo= new Hospital("apollo",1);
-        List<Hospital> hospitalList = new ArrayList<Hospital>();
-        hospitalList.add(max);
-        hospitalList.add(apollo);
-        Slots a = new Slots(123,1,10,vac); */
+
         Scanner sc = new Scanner(System.in);
         List<Vaccine> vaclist = new ArrayList<Vaccine>();
         List<Hospital> hoslist = new ArrayList<Hospital>();
         List<Citizen> citilist = new ArrayList<Citizen>();
         List<Slots> slotlist = new ArrayList<Slots>();
 
-
-        int exit =0;
+  int exit =0;
         while(exit==0) {
             System.out.println("CoWin Portal initialized....\n" +
                             "---------------------------------\n" +
@@ -48,17 +32,33 @@ public class Main {
             int choice = sc.nextInt();
 
             switch (choice) {
+
                 case 1:
-                    System.out.print("Vaccine Name:");
+                    int newvac=1;
+                    int gap=0;
+                    System.out.print("Vaccine Name: ");
                     String vac=sc.next();
+
+                    for (int i =0 ; i< vaclist.size();i++) {
+                        if (vac.equals(vaclist.get(i).getName()))
+                        { System.out.println("Two vaccine can not have a same name");
+                            newvac=0;
+                            break;
+                        }
+                    }
+                    if (newvac==1) {
                     System.out.println("Number of Doses");
                     int dose=sc.nextInt();
-                    //dont ask for gap in 1 no of doses
-                    System.out.println("Gaps beween Doses");
-                    int gap=sc.nextInt();
+                    if (dose>1) {
+                        System.out.println("Gaps beween Doses");
+                         gap = sc.nextInt();
+                    }
+
+
                     Vaccine vax= new Vaccine(vac,dose,gap);
                     vaclist.add(vax);
-                    System.out.println("Vaccine Name :"+ vac +", Number of Doses: "+dose +" ,Gap Between Doses: "+gap);
+                    System.out.println("Vaccine Name : "+ vac +", Number of Doses: "+dose +", Gap Between Doses: "+gap);
+                    }
 
                     break;
                 case 2:
@@ -71,7 +71,7 @@ public class Main {
                     Hospital hos= new Hospital(h_name,pin,number);
                     hoslist.add(hos);
 
-                    System.out.println("Hospital Name:" + h_name + ", Pincode:"+pin +"Unique id:"+ number );
+                    System.out.println("Hospital Name: " + h_name + ", Pincode: "+pin +" Unique id: "+ number );
                     break;
                 case 3:
                     System.out.println("Citizen Name:");
@@ -80,9 +80,14 @@ public class Main {
                     int age = sc .nextInt();
                     System.out.println("Unique ID");
                     long id = sc.nextLong();
-                    System.out.println("Citizen Name:"+name+", Age:"+age +", Unique ID:"+id);
+                    int length=String.valueOf(id).length();
+                    if (length!=12){
+                        System.out.println("Unique ID should be 12 digits");
+                        break;
+                    }
+                    System.out.println("Citizen Name: "+name+", Age:"+age +", Unique ID: "+id);
                     if (age>17){
-                    Citizen citi = new Citizen(name,age,id);
+                    Citizen citi = new Citizen(name,age,id,vaclist,slotlist);
                     citilist.add(citi);
                     }else
                         System.out.println("Only above 18 are allowed");
@@ -96,22 +101,43 @@ public class Main {
                     for (int i =0; i<no_slots;i++){
                         System.out.println("Enter Day Number:");
                         int day=sc.nextInt();
+
+                        for (int j =0;i<slotlist.size();i++){
+                            Slots s = slotlist.get(j);
+                            if (s.getHid()==hid && s.getDay()==day){
+                                System.out.println("Can't add different slots for same day in same hospital");
+                            }
+                        }
+
                         System.out.println("Enter quantity:");
                         int quantity=sc.nextInt();
                         System.out.println("Select vaccine:");
-                        for (int j =0 ;i< vaclist.size();i++){
-                            System.out.println( i +" "+ vaclist.get(j).getName());
+                        for (int j =0 ;j< vaclist.size();j++){
+                            System.out.println( j +" "+ vaclist.get(j).getName());
                         }
                         int vacchoice=sc.nextInt();
-                        Slots slot = new Slots(hid,day,quantity, vaclist.get(vacchoice));
+                        Slots slot = new Slots(hid,day,quantity, vaclist.get(vacchoice),vaclist,hoslist);
                         slotlist.add(slot);
 
-                        System.out.println("Slot added by Hospital "+hid+"for Day "+day+"Available Quantity: "+quantity+"of Vaccine "+vaclist.get(vacchoice));
+                        System.out.println("Slot added by Hospital "+ hid +" for Day "+day+" Available Quantity: "+quantity+" of Vaccine "+vaclist.get(vacchoice).getName());
                     }
                     break;
                 case 5:
                     System.out.println("Enter patient Unique ID:");
-                    long pid = sc.nextLong();
+                    long c_id = sc.nextLong();
+                    String search_vac=null;
+                    int citizen_in_list=-1;
+                    for (int i=0;i<citilist.size();i++) {
+                        Citizen c = citilist.get(i);
+                        if (c.getId() == c_id) {
+                            citizen_in_list = i;
+                            break;
+                        }
+                    }
+                    if (citizen_in_list==-1){
+                        System.out.println("NO ID FOUND");
+                        break;
+                    }
 
                     System.out.println("1. Search by area\n" +
                             "2. Search by Vaccine\n" +
@@ -124,49 +150,82 @@ public class Main {
                         for (int i =0; i<hoslist.size();i++){
                             Hospital h = hoslist.get(i);
                             if (h.getPincode()==user_pin){
-                                System.out.println(h.getPincode()+" "+h.getName());
+                                System.out.println(h.getId()+" "+h.getName());
                             }
                         }
-                        System.out.println("Enter hospital ID:");
-                        int user_hid= sc.nextInt();
-                        for (int i=0;i<slotlist.size();i++){
+                    }else if (search==2){
+                        System.out.println("Enter Vaccine Name:");
+                        String u_vac=sc.next();
+                        search_vac=u_vac;
+                        for (int i =0; i<slotlist.size();i++){
                             Slots s = slotlist.get(i);
-                            if (s.getId()==user_hid){
-                                if (s.getQuantity()>0) {
-                                    System.out.println(i + " -> Day: " + s.getDay() + " Available Qty: " + s.getQuantity() + " Vaccine: " + s.getVaccine());
+                            if (s.getVacName().equals(u_vac)){
+                                System.out.println(s.getHid()+" "+s.getHosName());
+                            }
+                        }
+                    }else
+                        break;
+
+                    System.out.println("Enter hospital ID:");
+                    int user_hid= sc.nextInt();
+                    int available=-1;
+                    if (citilist.get(citizen_in_list).getStatus()=="REGISTERED") {
+                        for (int i = 0; i < slotlist.size(); i++) {
+                            Slots s = slotlist.get(i);
+                            if (s.getHid() == user_hid) {
+                                if (s.getQuantity() > 0 &&((search==2 && search_vac.equals(s.getVacName()))  || (search!=2))) {
+                                    System.out.println(i + " -> Day: " + s.getDay() + " Available Qty: " + s.getQuantity() + " Vaccine: " + s.getVacName());
+                                    available=0;
                                 }
                             }
                         }
-                        System.out.println("Choose slot:");
-                        int user_slot= sc.nextInt();
-                        Slots s = slotlist.get(user_slot);
-                        for (int i = 0;i<citilist.size();i++){
-                            Citizen c = citilist.get(i);
-                            if(pid==c.getId()){
-                                c.vaccinate(s.getVaccine(),s.getDay());
-                                s.setQuantity();
+                        if (available==-1){
+                            System.out.println("NO SLOT AVAILABLE");
+                        }
+                    }else if (citilist.get(citizen_in_list).getStatus()=="PARTIALLY VACCINATED"){
+                        for (int i = 0; i < slotlist.size(); i++) {
+                            Slots s = slotlist.get(i);
+                            if (s.getHid() == user_hid && citilist.get(citizen_in_list).getVacName().equals(s.getVacName()) && citilist.get(citizen_in_list).getNextdate()<=s.getDay()) {
+                                if (s.getQuantity() > 0&&((search==2 && search_vac.equals(s.getVacName()))  || (search!=2))) {
+                                    System.out.println(i + " -> Day: " + s.getDay() + " Available Qty: " + s.getQuantity() + " Vaccine: " + s.getVacName());
+                                    available=0;
+                                }
                             }
                         }
+                        if (available==-1){
+                            System.out.println("NO SLOT AVAILABLE");
+                        }
+                    }else
+                        System.out.println("ALREADY VACCINATED");
+                    if (available!=-1) {
+
+                        System.out.println("Choose slot:");
+                        int user_slot = sc.nextInt();
+                        Slots s = slotlist.get(user_slot);
+                        citilist.get(citizen_in_list).vaccinate(s);
+                        s.setQuantity();
+                        System.out.println(citilist.get(citizen_in_list).getName() + " vaccinated with " + citilist.get(citizen_in_list).getVacName());
                     }
-                    System.out.println("accinated");
+
+
                     break;
                 case 6:
                     System.out.println("Enter Hospital ID:");
-                    int usr_hid= sc.nextInt();
+                    int user_h_id= sc.nextInt();
                     for (int i = 0;i<slotlist.size();i++){
-                        Slots s = slotlist.get(i);
-                        if(s.getId()==usr_hid){
-                            System.out.println("Day :"+ s.getDay()+"Vaccine:"+s.getVaccine()+" Available Qty:"+ s.getQuantity());
+                        Slots u_s = slotlist.get(i);
+                        if(u_s.getHid()==user_h_id){
+                            System.out.println("Day :"+ u_s.getDay()+" Vaccine:"+u_s.getVacName()+" Available Qty:"+ u_s.getQuantity());
                         }
                     }
 
                     break;
                 case 7:
                     System.out.println("Enter Patient ID:");
-                    long usr_pid=sc .nextLong();
+                    long user_pid=sc.nextLong();
                     for (int i = 0; i< citilist.size();i++){
                         Citizen c = citilist.get(i);
-                        if (c.getId()==usr_pid){
+                        if (c.getId()==user_pid){
                             c.vac_status();
                         }
                     }
@@ -175,11 +234,10 @@ public class Main {
                     exit=1;
                     break;
             }
+        }
 
-        }
-        for (int i =0 ;i< vaclist.size();i++){
-            System.out.println(vaclist.get(i).getNo_of_doses()+" "+ vaclist.get(i).getName());
-        }
+        System.out.println("PORTAL CLOSED");
+
 
 
     }

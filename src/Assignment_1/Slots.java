@@ -3,21 +3,34 @@ package Assignment_1;
 import java.util.List;
 
 public class Slots {
-    private int id;
+    private int hid;
     private int quantity;
     private int day;
     private Vaccine vaccine;
+    private List<Vaccine> vaclist;
+    private List<Hospital> hoslist;
 
-    public Slots(int id, int day , int quantity , Vaccine vaccine ){
-        this.id=id;
+
+    public Slots(int hid, int day , int quantity , Vaccine vaccine,List<Vaccine> vaclist,List<Hospital> hoslist  ){
+        this.hid=hid;
         this.quantity=quantity;
         this.day=day;
         this.vaccine= vaccine;
+        this.vaclist=vaclist;
+        this.hoslist=hoslist;
 
     }
 
-    public int getId() {
-        return id;
+    public int getHid() {
+        return hid;
+    }
+
+    public int getGap() {
+        return vaccine.getGap_in_doses();
+    }
+
+    public int getNo_of_doses() {
+        return vaccine.getNo_of_doses();
     }
 
     public int getQuantity() {
@@ -28,8 +41,18 @@ public class Slots {
         return day;
     }
 
-    public Vaccine getVaccine() {
-        return vaccine;
+    public String getVacName(){
+        return vaccine.name;
+    }
+
+    public String getHosName(){
+        for (int i =0;i< hoslist.size();i++){
+            Hospital h= hoslist.get(i);
+            if (h.getId()==hid){
+                return h.getName();
+            }
+        }
+        return "not found";
     }
 
     public void setQuantity() {

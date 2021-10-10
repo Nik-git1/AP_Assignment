@@ -1,6 +1,5 @@
 package Assignment_1;
 
-import javax.swing.*;
 import java.util.List;
 
 public class Citizen {
@@ -8,37 +7,36 @@ public class Citizen {
     private int age;
     private long id;
     private String status;
-    private Vaccine vac;
+    private String vac;
     private int no_of_dose;
     private int nextdate;
     private int day;
-    //private List<Vaccine> vaclist;
+    private List<Vaccine> vaclist;
+    private List<Slots> slotlist;
 
 
-    public Citizen(String name,int age, long id){
-
-        this.status="NOT VACCINATED";
+    public Citizen(String name,int age, long id,List<Vaccine> vaclist,List<Slots> slotlist){
+        this.status="REGISTERED";
         this.name = name;
         this.age = age;
         this.id = id;
         no_of_dose=0;
-
+        this.vaclist=vaclist;
+        this.slotlist=slotlist;
     }
 
-    public void vaccinate(Vaccine vac,int day){
-      //  this.vaclist= vaclist;
-        this.vac=vac;
-        this.day= day;
+    public void vaccinate(Slots s){
+       this.vac=s.getVacName();
+       this.day=s.getDay();
+       no_of_dose+=1;
 
-        no_of_dose+=1;
-
-        if(no_of_dose==vac.getNo_of_doses()){
-            status="VACCINATED";
+        if(no_of_dose==s.getNo_of_doses()){
+            status="FULLY VACCINATED";
         } else
             status="PARTIALLY VACCINATED";
 
-        if (status=="PARTIALY VACCINATED"){
-            nextdate=day+vac.getGap_in_doses();
+        if (status=="PARTIALLY VACCINATED"){
+            nextdate=day+s.getGap() ;
         }
 
     }
@@ -46,12 +44,22 @@ public class Citizen {
     public String getStatus() {
         return status;
     }
+
+    public String getVacName(){
+        return vac;
+    }
+
     public void vac_status(){
-        System.out.println(status);
-        System.out.println("Vaccine Given: "+vac);
-        System.out.println("NO of doses given: "+no_of_dose);
-        if (status=="PARTIALLY VACCINATED") {
+        if (status=="REGISTERED")
+        {
+            System.out.println("Citizen REGISTERED");
+        }else{
+            System.out.println(status);
+            System.out.println("Vaccine Given: "+vac);
+            System.out.println("NO of doses given: "+no_of_dose);
+            if (status=="PARTIALLY VACCINATED") {
             System.out.println("Next Dose due date: "+nextdate);
+        }
         }
     }
 
@@ -59,8 +67,8 @@ public class Citizen {
         return id;
     }
 
-    public Vaccine getVac() {
-        return vac;
+    public String getName() {
+        return name;
     }
 
     public int getNextdate() {

@@ -24,5 +24,4 @@ public class Vaccine {
         return name;
     }
 
-
 }
