@@ -13,11 +13,10 @@ public class Main {
         students s3 = new students("s3");
         instructor i1 = new instructor("i1");
         instructor i2 = new instructor("i2");
-        ArrayList<students> students_list = new ArrayList<>();
+        ArrayList<students> students_list = new ArrayList<students>();
         ArrayList<instructor> instructor_list= new ArrayList<>();
         students_list.add(s1);
-        students_list.add(s2);
-        students_list.add(s3);
+
         System.out.println("Welcome to Backpack\n" +
                 "1. Enter as instructor\n" +
                 "2. Enter as student\n" +
