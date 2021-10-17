@@ -51,7 +51,7 @@ public class Main {
                     System.out.println("Number of Doses");
                     int dose=sc.nextInt();
                     if (dose>1) {
-                        System.out.println("Gaps beween Doses");
+                         System.out.println("Gaps beween Doses");
                          gap = sc.nextInt();
                     }
 
