@@ -30,7 +30,7 @@ public class Main {
             if (choice1==1){
 
             }else if(choice1==2){
-                System.out.println(students_list.get(0).getName());
+                //System.out.println(students_list.get(0).getName());
                 student(students_list, instructor_list);
 
             }else if(choice1>3){
