@@ -1,5 +1,5 @@
 package Assignment_1;
-/*
+
 import java.util.List;
 
 public class Slots<Vaccine> {
@@ -26,7 +26,7 @@ public class Slots<Vaccine> {
     }
 
     public int getGap() {
-        return vaccine.getGap_in_dose();
+        return vaccine.getGap_in_doses();
     }
 
     public int getNo_of_doses() {
@@ -59,4 +59,3 @@ public class Slots<Vaccine> {
         quantity-=1;
     }
 }
-*/
