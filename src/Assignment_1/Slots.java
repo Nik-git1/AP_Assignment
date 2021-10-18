@@ -1,8 +1,8 @@
 package Assignment_1;
-
+/*
 import java.util.List;
 
-public class Slots {
+public class Slots<Vaccine> {
     private int hid;
     private int quantity;
     private int day;
@@ -26,7 +26,7 @@ public class Slots {
     }
 
     public int getGap() {
-        return vaccine.getGap_in_doses();
+        return vaccine.getGap_in_dose();
     }
 
     public int getNo_of_doses() {
@@ -59,3 +59,4 @@ public class Slots {
         quantity-=1;
     }
 }
+*/

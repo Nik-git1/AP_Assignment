@@ -1,5 +1,5 @@
 package Assignment_1;
-
+/*
 import java.util.List;
 
 public class Citizen {
@@ -75,3 +75,4 @@ public class Citizen {
         return nextdate;
     }
 }
+*/

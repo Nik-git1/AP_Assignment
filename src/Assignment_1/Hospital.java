@@ -1,7 +1,7 @@
 package Assignment_1;
 
 import java.util.Random;
-
+/*
 public class Hospital {
     private String name;
     private int pincode;
@@ -25,3 +25,4 @@ public class Hospital {
         return name;
     }
 }
+*/
