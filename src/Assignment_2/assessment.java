@@ -5,12 +5,13 @@ public class assessment {
     private String type;
     private String problem;
     private int max_marks;
-
     private instructor uploader;
     private int id;
+
     private boolean submit_status;
     private boolean status;
     private boolean grade_status;
+
     private String solution;
     private instructor grader;
     private int gained_marks;
@@ -57,7 +58,6 @@ public class assessment {
     public boolean isStatus() {
         return status;
     }
-
     public void setStatus(boolean status) {
         this.status = status;
     }
@@ -77,7 +77,6 @@ public class assessment {
     public String getType() {
         return type;
     }
-
 
     public boolean isSubmit_status() {
         return submit_status;
@@ -99,11 +98,7 @@ public class assessment {
         this.id = id;
     }
 
-    public void setProblem(String problem) {
-        this.problem = problem;
-    }
-
-    public void setSubmit_status(boolean submit_status) {
+    public void setSubmit_status(boolean submit_status){
         this.submit_status = submit_status;
     }
 

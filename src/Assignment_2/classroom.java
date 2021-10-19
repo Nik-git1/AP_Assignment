@@ -1,14 +1,11 @@
 package Assignment_2;
 
-import java.rmi.StubNotFoundException;
-import java.sql.SQLOutput;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
-import java.util.TimeZone;
+
 
 public class classroom {
     public static void main(String[] args)  {
@@ -17,21 +14,18 @@ public class classroom {
         ArrayList<instructor> i_list= new ArrayList<>();
         ArrayList<String> c_material = new ArrayList<>();
         ArrayList<assessment> assess_list = new ArrayList<>();
-        students s0 = new students("s0",assess_list,c_material);
-        students s1 = new students("s1",assess_list,c_material);
-        students s2 = new students("s2",assess_list,c_material);
-        instructor i0 = new instructor("i0",assess_list,c_material);
-        instructor i1 = new instructor("i1",assess_list,c_material);
-
+        ArrayList<String> comments = new ArrayList<>();
+        students s0 = new students("s0",assess_list,c_material,comments);
+        students s1 = new students("s1",assess_list,c_material,comments);
+        students s2 = new students("s2",assess_list,c_material,comments);
+        instructor i0 = new instructor("i0",assess_list,c_material,comments);
+        instructor i1 = new instructor("i1",assess_list,c_material,comments);
         s_list.add(s0);
         s_list.add(s1);
         s_list.add(s2);
         i_list.add(i0);
         i_list.add(i1);
-        assessment ass = new assessment("problem 1",i0);
-        assessment ass2 = new assessment("problem 2",5,i0);
-        assess_list.add(ass);
-        assess_list.add(ass2);
+
 
         System.out.println("Welcome to Backpack\n" +
                 "1. Enter as instructor\n" +
@@ -39,16 +33,18 @@ public class classroom {
                 "3. Exit");//
 
         int choice1= sc.nextInt();
-        while (choice1!=3){
-
-            if (choice1==1){
+        sc.nextLine();
+        while (choice1!=3){//main menu start
+            if (choice1==1){// Instructor menu start
                 System.out.println("Instructors:\n" +
                                 "0 - I1\n" +
                                 "1 - I2\n" +
                                 "Choose id:");
                 int id = sc.nextInt();
-                instructor i = i_list.get(id);
-                System.out.println("Welcome"+ i.getName());
+                sc.nextLine();
+                instructor i = i_list.get(id);//Instructor selected
+                System.out.println("Welcome "+ i.getName());
+                System.out.println();
                 System.out.println("INSTRUCTOR MENU\n" +
                         "1. Add class material\n" +
                         "2. Add assessments\n" +
@@ -60,13 +56,13 @@ public class classroom {
                         "8. Add comments\n" +
                         "9. Logout");
                 int choice_i= sc.nextInt();
+                sc.nextLine();
                 while (choice_i!=9) {
 
                     switch (choice_i){
                         case 1:
                             System.out.println("1. Add Lecture Slide\n" +
                                     "2. Add Lecture Video");
-
                             int material_choice= sc.nextInt();
                             sc.nextLine();
                             if (material_choice==1){
@@ -82,14 +78,9 @@ public class classroom {
                                     c_material.add("Slide"+(j+1)+":"+content);
                                 }
                                 c_material.add("Number of slides:" + slides);
-                              //  Date date = new Date();
-                                //SimpleDateFormat formatTime = new SimpleDateFormat("HH.mm ss");
-                              //  formatTime.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
-                                //String time = formatTime.format(Date);
-                               // c_material.add(time);
+                                String c= ZonedDateTime.now().format(DateTimeFormatter.RFC_1123_DATE_TIME);
+                                c_material.add("Date of upload "+ c);
                                 c_material.add("Uploaded by "+i.getName());
-
-                                //System.out.println(date);
 
                             }else {
                                 System.out.println("Enter topic of video:");
@@ -101,6 +92,8 @@ public class classroom {
                                 if (lect_format.equals(".mp4")){
                                     c_material.add(lect_topic);
                                     c_material.add(lect_name);
+                                    String c= ZonedDateTime.now().format(DateTimeFormatter.RFC_1123_DATE_TIME);
+                                    c_material.add("Date of upload "+ c);
                                 }else{
                                     System.out.println("Enter .mp4 format only");
                                 }
@@ -108,6 +101,7 @@ public class classroom {
                                     System.out.println("Enter .mp4 format only");
 
                             }
+                            c_material.add("\n");
                             System.out.println("Welcome "+ i.getName());
 
                             break;
@@ -151,14 +145,16 @@ public class classroom {
                                     "1. S1\n" +
                                     "2. S3");
                             int stu_choice=sc.nextInt();
+                            sc.nextLine();
                             students s =s_list.get(stu_choice);
                             for (int k =0;k<s.getSubmit_list().size();k++){
                                 assessment a = s.getSubmit_list().get(k);
                                 if (a.isGrade_status()==false){
-                                System.out.println("Submission:"+ a.getType()+" "+ a.getSolution());
-                                System.out.println("Max Marks:"+ a.getMax_marks());
-                                System.out.println("Marks Scored: ");
+                                System.out.println("Submission: "+ a.getType()+" "+ a.getSolution());
+                                System.out.println("Max Marks: "+ a.getMax_marks());
+                                System.out.println("Marks Scored:");
                                 int marks_scored= sc.nextInt();
+                                sc.nextLine();
                                 a.setGained_marks(marks_scored);
                                 a.setGrader(i);
                                 a.setGrade_status(true);
@@ -172,21 +168,22 @@ public class classroom {
                             i.ViewAssessment();
                             System.out.println("Enter id of assignment to close:");
                             int close_id= sc.nextInt();
+                            sc.nextLine();
                             assess_list.get(close_id).setStatus(false);
-                            System.out.println("Welcome"+i.getName());
+                            System.out.println("Welcome "+i.getName());
 
                             break;
-                        case 7:
+                        case 7:i.ViewComment();
                             System.out.println("Welcome "+ i.getName());
                             break;
                         case 8:
+                            System.out.println("Enter comment");
+                            String comment= sc.nextLine();
+                            i.AddComment(comment);
                             System.out.println("Welcome "+ i.getName());
                             break;
-                        case 9: choice_i=9;
-                            break;
-
                     }//end of switch
-                    System.out.println("INSTRUCTOR MENU\n" +
+                     System.out.println("INSTRUCTOR MENU\n" +
                             "1. Add class material\n" +
                             "2. Add assessments\n" +
                             "3. View lecture materials\n" +
@@ -197,22 +194,22 @@ public class classroom {
                             "8. Add comments\n" +
                             "9. Logout");
                     choice_i= sc.nextInt();
+                    sc.nextLine();
 
-                }//end of i_menu
+                }//end of instructor menu
 
 
-            }else if(choice1==2){
+            }else if(choice1==2){//student mennu
                 System.out.println("Students:\n" +
                         "0 - S0\n" +
                         "1 - S1\n" +
                         "2 - S2\n" +
                         "Choose id:");
                 int id = sc.nextInt();
-                students s = s_list.get(id);
+                students s = s_list.get(id);//Student selected
                 System.out.println("Welcome"+ s.getName());
 
-
-                System.out.println("STUDENT MENU\n" +
+                  System.out.println("STUDENT MENU\n" +
                         "1. View lecture materials\n" +
                         "2. View assessments\n" +
                         "3. Submit assessment\n" +
@@ -221,6 +218,7 @@ public class classroom {
                         "6. Add comments\n" +
                         "7. Logout");
                 int choice_s= sc.nextInt();
+                sc.nextLine();
                 while (choice_s!=7) {
 
                     switch (choice_s){
@@ -239,7 +237,7 @@ public class classroom {
                                 String a_sol= sc.nextLine();
                                 if (a_sol.length()>4){
                                     String ans_format= a_sol.substring(a_sol.length()-4,a_sol.length());
-                                    System.out.println(ans_format);
+
                                     if (ans_format.equals(".zip")){
                                     s.submit(choice_id,a_sol);
                                     }else{
@@ -259,16 +257,16 @@ public class classroom {
                         case 4:s.ViewGrade();
                             System.out.println("Welcome "+ s.getName());
                             break;
-                        case 5:;
+                        case 5:;s.ViewComment();
                             System.out.println("Welcome "+ s.getName());
                             break;
-                        case 6:
+                        case 6:System.out.println("Enter comment");
+                            String comment= sc.nextLine();
+                            s.AddComment(comment);
                             System.out.println("Welcome "+ s.getName());
-                            break;
-                        case 7: choice_s=7;
                             break;
                     }//end of switch
-                    System.out.println("STUDENT MENU\n" +
+                   System.out.println("STUDENT MENU\n" +
                             "1. View lecture materials\n" +
                             "2. View assessments\n" +
                             "3. Submit assessment\n" +
@@ -277,6 +275,7 @@ public class classroom {
                             "6. Add comments\n" +
                             "7. Logout");
                     choice_s= sc.nextInt();
+                    sc.nextLine();
 
                 }//end of s_menu
 
@@ -290,13 +289,9 @@ public class classroom {
                     "2. Enter as student\n" +
                     "3. Exit");
             choice1= sc.nextInt();
+            sc.nextLine();
 
         }//end of main menu
-        for (int i=0;i< assess_list.size();i++){
-            System.out.println(assess_list.get(i).getProblem());
-        }
-
+        System.out.println("PORTAL CLOSED");
     }
-
-
 }
