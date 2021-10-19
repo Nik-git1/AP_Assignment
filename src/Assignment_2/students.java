@@ -10,12 +10,14 @@ public class students {
     private assessment student_ass;
     private ArrayList<String> c_material;
     private ArrayList<assessment> submit_list;
+    private ArrayList<Integer> submitted_array;
 
     public students(String name,ArrayList<assessment> assess_list,ArrayList<String> c_material) {
         this.name = name;
         this.assess_list=assess_list;
         this.c_material=c_material;
         submit_list= new ArrayList<assessment>();
+        submitted_array= new ArrayList<Integer>();
         index=count;
         count++;
 
@@ -43,40 +45,72 @@ public class students {
     }
 
     public void ViewAssessment(){
+        int pending=0;
         System.out.println("Pending assessements");
-        for (int  k = 0; k<assess_list.size();k++){
-            assessment a =assess_list.get(k);
-            if (a.isStatus()==true && a.isSubmit_status()==false){
-                if (a.getType().equals("Assignment")) {
-                    System.out.println("ID: " + a.getId() + " " + a.getType() + ":" + a.getProblem() + " " + a.getMax_marks());
-                }
-                else
-                    System.out.println("ID: " + a.getId() + " " + a.getType() + ":" + a.getProblem());
-            }
+         for (int  k = 0; k<assess_list.size();k++){
+             assessment a =assess_list.get(k);
+             boolean ans=submitted_array.contains(a.getId());
+             if (a.isStatus()==true && ans==false){
+                 pending=1;
+                 if (a.getType().equals("Assignment")) {
+                     System.out.println("ID: " + a.getId() + " " + a.getType() + ":" + a.getProblem() + " " + a.getMax_marks());
+                 }
+                 else
+                     System.out.println("ID: " + a.getId() + " " + a.getType() + ":" + a.getProblem());
+             }
+
+
+         }
+        if (pending==0){
+            System.out.println("No pending assignments");
         }
 
     }
+
 
     public void submit(int id,String solution){
         assessment a;
         assessment original = assess_list.get(id);
         if (original.getType().equals("Assignment")){
-            a = new assessment(original.getProblem(), original.getMax_marks(), original.getUploader());
-
-
+            a = new assessment( original.getMax_marks(), original.getUploader(), original.getProblem());
+            a.setId(original.getId());
         }else {
-            a = new assessment(original.getProblem(), original.getUploader());
+            a = new assessment( original.getUploader(),original.getProblem());
+            a.setId(original.getId());
         }
 
-        System.out.println(original.getProblem() +" original");
-        System.out.println(original.isSubmit_status());
-        System.out.println(a.getProblem() + " new");
         a.setSubmit_status(true);
-        System.out.println(original.isSubmit_status());
         a.setSolution(solution);
         submit_list.add(a);
+        System.out.println(a.getId());
+        submitted_array.add(a.getId());
+        System.out.println(submitted_array.get(0));
         System.out.println(submit_list.get(0).getSolution());
     }
 
+    public ArrayList<assessment> getSubmit_list() {
+        return submit_list;
+    }
 
+    public void ViewGrade(){
+        System.out.println("Graded Submission\n");
+        for (int i=0;i<submit_list.size();i++){
+            assessment a = submit_list.get(i);
+            if (a.isGrade_status()==true){
+                System.out.println("Submission "+ a.getSolution());
+                System.out.println("Marks scored: "+ a.getGained_marks());
+                System.out.println("Graded by: " + a.getGrader().getName());
+            }
+        }
+        System.out.println("Ungraded Submission\n");
+
+        for (int i=0;i<submit_list.size();i++){
+            assessment a = submit_list.get(i);
+
+            if (a.isGrade_status()==false){
+                System.out.println("Submission"+ a.getSolution());
+            }
+        }
+
+    }
 }

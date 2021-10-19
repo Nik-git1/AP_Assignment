@@ -1,5 +1,6 @@
 package Assignment_2;
 
+import java.rmi.StubNotFoundException;
 import java.sql.SQLOutput;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,7 +29,7 @@ public class classroom {
         i_list.add(i0);
         i_list.add(i1);
         assessment ass = new assessment("problem 1",i0);
-        assessment ass2 = new assessment("problem 2",i0);
+        assessment ass2 = new assessment("problem 2",5,i0);
         assess_list.add(ass);
         assess_list.add(ass2);
 
@@ -143,20 +144,32 @@ public class classroom {
                             System.out.println("Welcome "+ i.getName());
                             break;
                         case 5:
+                            System.out.println("List of assessments");
+                            i.ViewLecture();
+                            System.out.println("Choose ID from these ungraded submissions\n" +
+                                    "0. S0\n" +
+                                    "1. S1\n" +
+                                    "2. S3");
+                            int stu_choice=sc.nextInt();
+                            students s =s_list.get(stu_choice);
+                            for (int k =0;k<s.getSubmit_list().size();k++){
+                                assessment a = s.getSubmit_list().get(k);
+                                if (a.isGrade_status()==false){
+                                System.out.println("Submission:"+ a.getType()+" "+ a.getSolution());
+                                System.out.println("Max Marks:"+ a.getMax_marks());
+                                System.out.println("Marks Scored: ");
+                                int marks_scored= sc.nextInt();
+                                a.setGained_marks(marks_scored);
+                                a.setGrader(i);
+                                a.setGrade_status(true);
+                                }
+                            }
+
                             System.out.println("Welcome "+ i.getName());
                             break;
                         case 6:
                             System.out.println("List of open Assessments");
-                            for (int  k = 0; k<assess_list.size();k++){
-                                assessment a =assess_list.get(k);
-                                if (a.isStatus()==true){
-                                    if (a.getType().equals("Assignment")) {
-                                        System.out.println("ID: " + a.getId() + " " + a.getType() + ":" + a.getProblem() + " " + a.getMax_marks());
-                                    }
-                                    else
-                                        System.out.println("ID: " + a.getId() + " " + a.getType() + ":" + a.getProblem());
-                                }
-                            }
+                            i.ViewAssessment();
                             System.out.println("Enter id of assignment to close:");
                             int close_id= sc.nextInt();
                             assess_list.get(close_id).setStatus(false);
@@ -226,24 +239,27 @@ public class classroom {
                                 String a_sol= sc.nextLine();
                                 if (a_sol.length()>4){
                                     String ans_format= a_sol.substring(a_sol.length()-4,a_sol.length());
-                                    if (a_sol.equals(".zip")){
+                                    System.out.println(ans_format);
+                                    if (ans_format.equals(".zip")){
                                     s.submit(choice_id,a_sol);
-                                    }else
+                                    }else{
                                         System.out.println("Enter .zip file only");
-                                }
-                            }else {
+                                    }
+                                } else
+                                    System.out.println("Enter .zip file only");
+                            }
+                            else {
                                 System.out.println(assess_list.get(choice_id).getProblem());
                                 String quiz_ans= sc.nextLine();
                                 s.submit(choice_id,quiz_ans);
 
                             }
-
                             System.out.println("Welcome "+ s.getName());
                             break;
-                        case 4:
+                        case 4:s.ViewGrade();
                             System.out.println("Welcome "+ s.getName());
                             break;
-                        case 5:
+                        case 5:;
                             System.out.println("Welcome "+ s.getName());
                             break;
                         case 6:
