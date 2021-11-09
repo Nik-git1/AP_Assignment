@@ -2,7 +2,7 @@ package Assignment_3;
 
 
 public class column_matrix extends non_square{
-    String type="Column Matrix";
+    String type="Column matrix";
 
     public column_matrix(int[][] matrix, int rows,int columns) {
         super(matrix,rows,columns);

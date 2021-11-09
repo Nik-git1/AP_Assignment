@@ -5,7 +5,7 @@ package Assignment_3;
 import java.util.ArrayList;
 
 public class non_square extends MATRIX{
-    String type="Rectangular";
+    String type="Rectangular matrix";
 
     public non_square(int[][] matrix, int rows, int columns) {
         super(matrix,rows,columns);

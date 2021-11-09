@@ -3,7 +3,7 @@ package Assignment_3;
 import java.util.ArrayList;
 
 public class square extends MATRIX {
-    String type = "Square";
+    String type = "Square matrix";
 
     public square(int[][] matrix, int size) {
         super( matrix, size);

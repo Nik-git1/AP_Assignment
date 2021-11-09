@@ -104,8 +104,10 @@ public class MATRIX {
 
     }
 
-    public String getTypelist() {
-        return typelist.get(0);
+    public void labelfinder (String label){
+        if (typelist.contains(label)){
+            display();
+        }
     }
 
     public void setMatrix() {
@@ -114,9 +116,9 @@ public class MATRIX {
             columns = size;
         }
         ArrayList<String> forbidden = new ArrayList<String>();
-        forbidden.add("Null");
-        forbidden.add("Ones");
-        forbidden.add("Identity");
+        forbidden.add("Null matrix");
+        forbidden.add("Ones matrix");
+        forbidden.add("Identity matrix");
         int flag = 1;
         for (int i = 0; i < forbidden.size(); i++) {
             if (typelist.contains(forbidden.get(i))) {
@@ -128,7 +130,7 @@ public class MATRIX {
                 flag = 2; }
         }
 
-        if (typelist.contains("Singular Matrix")){
+        if (typelist.contains("Singular matrix")){
             for (int i=0;i<rows;i++){
                 matrix[0][i]=0;
             }

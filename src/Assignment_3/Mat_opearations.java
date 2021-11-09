@@ -343,6 +343,63 @@ public class Mat_opearations {
                 case 14:
                     break;
                 case 15:
+                    System.out.println("Enter matrix label to search");
+                    System.out.println("1. Rectangular Matrix\n" +
+                            "2. Row Matrix\n" +
+                            "3. Column Matrix\n" +
+                            "4. Square Matrix\n" +
+                            "5. Symmetric Matrix\n" +
+                            "6. Skew-symmetric Matrix\n" +
+                            "7. Upper-triangular Matrix\n" +
+                            "8. Lower-triangular Matrix\n" +
+                            "9. Singular Matrix\n" +
+                            "10. Diagonal Matrix\n" +
+                            "11. Scalar Matrix\n" +
+                            "12. Identity Matrix\n" +
+                            "13. Singleton Matrix\n" +
+                            "14. Ones Matrix\n" +
+                            "15. Null Matrix");
+                    int label_type = sc.nextInt();
+                    String label="";
+                    switch (label_type){
+                        case 1:  label="Rectangular matrix";
+                            break;
+                        case 2:  label="Row matrix";
+                            break;
+                        case 3:label="Column matrix";
+                            break;
+                        case 4:label="Square matrix";
+                            break;
+                        case 5:label="Symmetric matrix";
+                            break;
+                        case 6:label="Skew Symmetric matrix";
+                            break;
+                        case 7:label="Upper matrix";
+                            break;
+                        case 8:label="Lower matrix";
+                            break;
+                        case 9:label="Singular matrix";
+                            break;
+                        case 10:label="Diagonal matrix";
+                            break;
+                        case 11:label="Scalar matrix";
+                            break;
+                        case 12:label="Identity matrix";
+                            break;
+                        case 13:label="Singleton matrix";
+                            break;
+                        case 14:label="Ones matrix";
+                            break;
+                        case 15:label="Null matrix";
+                            break;
+
+                    }
+
+                    for (int i=0;i<mat_list.size();i++){
+                        mat_list.get(i).labelfinder(label);
+                    }
+
+
                     break;
                 case 16:
                     choice = 16;
