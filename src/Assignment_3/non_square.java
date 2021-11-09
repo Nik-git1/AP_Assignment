@@ -25,6 +25,7 @@ public class non_square extends MATRIX{
             for (int j =0;j<columns;j++){
                 System.out.print(matrix[i][j]+" ");
             }
+            System.out.println();
         }
 
         System.out.println();

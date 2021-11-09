@@ -9,4 +9,5 @@ public class symmetric_matrix extends square {
         this.size=size;
         typelist.add(type);
     }
+
 }

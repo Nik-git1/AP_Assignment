@@ -12,6 +12,13 @@ public class square extends MATRIX {
         this.matrix = matrix;
         typelist.add(type);
     }
+    public square(int[] matrix, int size) {
+        super(size,matrix);
+        typelist = new ArrayList<String>();
+        this.size = size;
+        this.diag = diag;
+        typelist.add(type);
+    }
 
     void display() {
         System.out.println("id= " + id);
@@ -22,8 +29,19 @@ public class square extends MATRIX {
             for (int j = 0; j < size; j++) {
                 System.out.print(matrix[i][j] + " ");
             }
+            System.out.println();
         }
 
+        System.out.println();
+    }
+    void diag_display() {
+        System.out.println("id= " + id);
+        for (int k = 0; k < typelist.size(); k++) {
+            System.out.println(typelist.get(k));
+        }
+        for (int i = 0; i < size; i++) {
+            System.out.println(diag[i]);
+        }
         System.out.println();
     }
 }

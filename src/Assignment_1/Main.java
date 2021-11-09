@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
-
+/*
 public class Main {
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        List<Vaccine> vaclist = new ArrayList<>();
+        List<Vaccine> vaclist= new ArrayList<>();
         List<Hospital> hoslist = new ArrayList<>();
         List<Citizen> citilist = new ArrayList<>();
         List<Slots> slotlist = new ArrayList<>();
@@ -272,3 +272,4 @@ public class Main {
 
     }
 }
+*/
