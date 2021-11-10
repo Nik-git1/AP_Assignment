@@ -49,16 +49,17 @@ public class MATRIX {
 
     }
 
-
     void display() {
     }
 
-    ;
+    public int value(){
+        return this.matrix[0][0];
+    }
 
     void diag_display() {
     }
 
-    ;
+
 
     public void getType() {
         for (int i = 0; i < typelist.size(); i++) {

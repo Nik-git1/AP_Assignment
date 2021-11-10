@@ -12,4 +12,5 @@ public class singleton extends square{
             typelist.add("Null");
         }
     }
+
 }

@@ -457,6 +457,76 @@ public class Mat_opearations {
 
                     break;
                 case 11:
+                    System.out.println("Enter id of the singleton matrix");
+                    int single_id = sc.nextInt();
+                    System.out.println("enter no of rows required");
+                    int s_row = sc.nextInt();
+                    int val= mat_list.get(single_id).value();
+                    int[][] scalar_new;
+                    int[][] old;
+                    scalar_new=c_diagonal(s_row,val);
+                    System.out.println("Enter id of 2nd matrix");
+                    int old_id= sc.nextInt();
+                    old = mat_list.get(old_id).getMatrix();
+
+
+                    System.out.println("Choose operation to perform");
+                    System.out.println("1. Perform addition.\n" +
+                            "2. Perform subtraction\n" +
+                            "3. Perform multiplication.\n" +
+                            "4. Perform division.");
+                    int ope = sc.nextInt();
+                    int len = scalar_new.length;
+                    int c_old = old[0].length;
+                    int r_old = old.length;
+
+                    switch (ope) {
+                        case 1:
+                            if (len==c_old && len == r_old) {
+                                if (mat_list.get(old_id).typelist.contains("Null matrix")) {
+                                    display(scalar_new, 1);
+                                }  else
+                                    add(scalar_new, old, 1);
+                            } else
+                                System.out.println("Dimensions do not match");
+                            break;
+                        case 2:
+                            if (len==c_old && len == r_old) {
+                                if (mat_list.get(old_id).typelist.contains("Null matrix")) {
+                                    display(scalar_new, -1);
+                                }  else
+                                    add(old,scalar_new, -1);
+                            } else
+                                System.out.println("Dimensions do not match");
+
+                            break;
+                        case 3:
+                            if (len ==c_old ) {
+                                if (mat_list.get(old_id).typelist.contains("Null matrix")) {
+                                    Null_mat(r_old, len);
+                                } else
+                                    multiply(op_mat1, scalar_new);
+                            } else
+                                System.out.println("Dimensions error");
+
+
+                            break;
+                        case 4:
+                            if ( len == c_old) {
+                                float[][] temp = new float[len][len];
+                                for (int i =0; i<len;i++){
+                                    for (int j=0 ;j<len;j++){
+                                       temp[i][j]=(float)(1/scalar_new[i][j]);
+                                    }
+                                }
+                                f_multiply(old, temp);
+                            }
+                            else {
+                                System.out.println(" Dimensions error");
+                            }
+                            break;
+                    }
+
                     break;
                 case 12:
                     System.out.println("Enter id of the matrix");
@@ -654,7 +724,7 @@ public class Mat_opearations {
     static void display(int mat[][], int value) {
         for (int i = 0; i < mat.length; i++) {
             for (int j = 0; j < mat[0].length; j++) {
-                System.out.println((value * mat[i][j]) + " ");
+                System.out.print((value * mat[i][j]) + " ");
             }
             System.out.println();
         }
