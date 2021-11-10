@@ -10,4 +10,5 @@ public class diagonal_matrix extends square{
         typelist.add(type);
     }
 
+
 }

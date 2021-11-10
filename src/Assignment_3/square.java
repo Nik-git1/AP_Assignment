@@ -40,8 +40,13 @@ public class square extends MATRIX {
             System.out.println(typelist.get(k));
         }
         for (int i = 0; i < size; i++) {
-            System.out.println(diag[i]);
+            for (int j = 0; j < size; j++) {
+                if (i==j){
+                    System.out.println(diag[i]);
+                }else
+                    System.out.println("1");
+            }
+            System.out.println();
         }
-        System.out.println();
     }
 }

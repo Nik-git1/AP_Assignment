@@ -60,6 +60,7 @@ public class Mat_opearations {
                         int size = rows;
                         int flag_0 = 0;
                         int flag_1 = 0;
+
                         for (int i = 0; i < size; i++) {
                             for (int j = 0; j < size; j++) {
                                 if (matrix[i][j] != 0) {
@@ -76,36 +77,40 @@ public class Mat_opearations {
                                 }
                             }
                         }// ones check
+
                         if (size == 1) {
                             singleton mat = new singleton(matrix, size);
                             mat_list.add(mat);
                         } else if (flag_0 == 0) {
-
                             Null mat = new Null(matrix, size);
                             mat_list.add(mat);
                         } else if (flag_1 == 0) {
-
                             ones mat = new ones(matrix, size);
                             mat_list.add(mat);
+                        } else if (deter(matrix,size)==0){
+                            singular_matrix mat= new singular_matrix(matrix,size);
+                            mat_list.add(mat);
+                            break;
                         } else if (diagonality(matrix, size) == 1) {
-                            int[] diag= new int[size];
-                            diag=diagconverter(size,matrix);
+                            int[] diag = new int[size];
+                            diag = diagconverter(size, matrix);
                             diagonal_matrix mat = new diagonal_matrix(diag, size);
                             mat_list.add(mat);
                         } else if (diagonality(matrix, size) == 2) {
-                            int[] diag= new int[size];
-                            diag=diagconverter(size,matrix);
+                            int[] diag = new int[size];
+                            diag = diagconverter(size, matrix);
                             scalar mat = new scalar(diag, size);
                             mat_list.add(mat);
                         } else if (diagonality(matrix, size) == 3) {
-                            int[] diag= new int[size];
-                            diag=diagconverter(size,matrix);
+                            int[] diag = new int[size];
+                            diag = diagconverter(size, matrix);
                             identity mat = new identity(diag, size);
                             mat_list.add(mat);
                         } else if (symmetry(matrix, size) == 1) {
                             symmetric_matrix mat = new symmetric_matrix(matrix, size);
                             mat_list.add(mat);
-                        } else if (symmetry(matrix, size) == 2) {
+                            break;
+                        } else if (symmetry(matrix,size) == 2) {
                             skew_matrix mat = new skew_matrix(matrix, size);
                             mat_list.add(mat);
                             break;
@@ -117,16 +122,11 @@ public class Mat_opearations {
                             lower_matrix mat = new lower_matrix(matrix, size);
                             mat_list.add(mat);
                             break;
-                        } else if (det(matrix, size) == 0) {
-                            System.out.println("in det 0");
-                            singular_matrix mat = new singular_matrix(matrix, size);
-                            mat_list.add(mat);
-                            break;
-                        } else if (size > 1) {
-                            System.out.println("in square");
-                            square mat = new square(matrix, size);
+                        }else if (size>1){
+                            square mat = new square(matrix,size);
                             mat_list.add(mat);
                         }
+
 
                     }//CONDITIONS CHECK
 
@@ -217,8 +217,8 @@ public class Mat_opearations {
                             break;
                         case 10:
                             created_mat = c_diagonal(row, 0);
-                            int[] di= new int[row];
-                            di=diagconverter(row,created_mat);
+                            int[] di = new int[row];
+                            di = diagconverter(row, created_mat);
                             diagonal_matrix diag1 = new diagonal_matrix(di, row);
                             mat_list.add(diag1);
                             diag1.diag_display();
@@ -227,16 +227,16 @@ public class Mat_opearations {
                             System.out.println("enter scalar value");
                             int val = sc.nextInt();
                             created_mat = c_diagonal(row, val);
-                            int[] di1= new int[row];
-                            di1=diagconverter(row,created_mat);
+                            int[] di1 = new int[row];
+                            di1 = diagconverter(row, created_mat);
                             scalar diag2 = new scalar(di1, row);
                             mat_list.add(diag2);
                             diag2.diag_display();
                             break;
                         case 12:
                             created_mat = c_diagonal(row, 1);
-                            int[] di2= new int[row];
-                            di2=diagconverter(row,created_mat);
+                            int[] di2 = new int[row];
+                            di2 = diagconverter(row, created_mat);
                             identity diag3 = new identity(di2, row);
                             mat_list.add(diag3);
                             diag3.diag_display();
@@ -245,42 +245,42 @@ public class Mat_opearations {
                             if (row == col && row == 1) {
                                 Random rand = new Random();
                                 int num = 2 + rand.nextInt(10);
-                            created_mat[0][0] = num;
-                            singleton single_mat = new singleton(created_mat, row);
-                            mat_list.add(single_mat);
+                                created_mat[0][0] = num;
+                                singleton single_mat = new singleton(created_mat, row);
+                                mat_list.add(single_mat);
                                 single_mat.display();
                             } else {
-                            System.out.println("Wrong dimension");
+                                System.out.println("Wrong dimension");
                             }
-                             break;
+                            break;
                         case 14:
                             for (int i = 0; i < row; i++) {
                                 for (int j = 0; j < col; j++) {
-                                created_mat[i][j] = 1;
+                                    created_mat[i][j] = 1;
+                                }
                             }
-                        }
-                        ones o_mat = new ones(created_mat, row);
-                        mat_list.add(o_mat);
-                        o_mat.display();
-                        break;
+                            ones o_mat = new ones(created_mat, row);
+                            mat_list.add(o_mat);
+                            o_mat.display();
+                            break;
 
                         case 15:
-                        for (int i = 0; i < row; i++) {
-                            for (int j = 0; j < col; j++) {
-                                created_mat[i][j] = 0;
+                            for (int i = 0; i < row; i++) {
+                                for (int j = 0; j < col; j++) {
+                                    created_mat[i][j] = 0;
+                                }
                             }
-                        }
                             Null i_mat = new Null(created_mat, row);
                             mat_list.add(i_mat);
                             i_mat.display();
                             break;
 
-                    }
+                    }//CREATE MATRIX
 
                     break;
                 case 3:
                     System.out.println("Choose matrix id to change");
-                    int mat_id=sc.nextInt();
+                    int mat_id = sc.nextInt();
                     mat_list.get(mat_id).setMatrix();
 
                     break;
@@ -290,33 +290,122 @@ public class Mat_opearations {
                     mat_list.get(choose_id).getType();
 
                     break;
+
                 case 5:
+                    int[][] op_mat1;
+                    int[][] op_mat2;
 
                     System.out.println("Choose operation to perform");
                     System.out.println("1. Perform addition.\n" +
                             "2. Perform subtraction\n" +
-                            "3. Transpose multiplication.\n" +
-                            "4. Inverse division.");
+                            "3. Perform multiplication.\n" +
+                            "4. Perform division.");
                     int operation = sc.nextInt();
-                    System.out.println("Choose two matrices id");
-                    int choose_id_ = sc.nextInt();
+                    System.out.println("Choose 1st matrices id");
+                    int choose_id_1 = sc.nextInt();
+                    System.out.println("Choose 2nd matrices id");
                     int choose_id_2 = sc.nextInt();
+                    op_mat1 = mat_list.get(choose_id_1).getMatrix();
+                    op_mat2 = mat_list.get(choose_id_2).getMatrix();
+                    int r1 = op_mat1.length;
+                    int r2 = op_mat2.length;
+                    int c1 = op_mat1[0].length;
+                    int c2 = op_mat2[0].length;
 
+
+                    switch (operation) {
+                        case 1:
+
+                            if (r1 == r2 && c1 == c2) {
+                                if (mat_list.get(choose_id_1).typelist.contains("Null matrix")) {
+                                    display(op_mat2, 1);
+                                } else if (mat_list.get(choose_id_2).typelist.contains("Null matrix")) {
+                                    display(op_mat1, 1);
+                                } else
+                                    add(op_mat1, op_mat2, 1);
+                            } else
+                                System.out.println("Dimensions do not match");
+                            break;
+                        case 2:
+
+                            if (r1 == r2 && c1 == c2) {
+                                if (mat_list.get(choose_id_1).typelist.contains("Null matrix")) {
+                                    display(op_mat2, -1);
+                                } else if (mat_list.get(choose_id_2).typelist.contains("Null matrix")) {
+                                    display(op_mat1, 1);
+                                } else
+                                    add(op_mat1, op_mat2, -1);
+                            } else
+                                System.out.println("Dimensions do not match");
+                            break;
+                        case 3:
+                            if (r2 == c1) {
+                                if (mat_list.get(choose_id_1).typelist.contains("Null matrix") || mat_list.get(choose_id_2).typelist.contains("Null")) {
+                                    Null_mat(r1, c2);
+                                } else if (mat_list.get(choose_id_1).typelist.contains("Identity matrix")) {
+                                    display(op_mat2, 1);
+                                } else if (mat_list.get(choose_id_2).typelist.contains("Identity matrix")) {
+                                    display(op_mat1, 1);
+                                } else
+                                    multiply(op_mat1, op_mat2);
+                            } else
+                                System.out.println("Dimensions error");
+
+
+                            break;
+                        case 4:
+                            if (r2 == c2 && r2 == c1) {
+                                float[][] temp;
+                                if (mat_list.get(choose_id_2).typelist.contains("Singular matrix")) {
+                                    System.out.println("Error! Singular matrix cant be a divisor");
+                                } else {
+                                    if (mat_list.get(choose_id_2).typelist.contains("Identity matrix")) {
+                                        display(op_mat1, 1);
+                                    } else {
+                                        temp=mat_list.get(choose_id_2).inverse();
+                                        f_multiply(op_mat1,temp);
+                                    }
+                                }
+                            } else {
+                                System.out.println(" Dimensions error");
+                            }
+                            break;
+                    }
 
                     break;
                 case 6:
-                    System.out.println("Enter id of the matrix");
-                    int choose_id_new = sc.nextInt();
-                    int c=mat_list.get(choose_id_new).getColumns();
-                    int r=mat_list.get(choose_id_new).getRows();
+                    int[][] el_mat1;
+                    int[][] el_mat2;
 
-                    int[][] balh;
-                    balh= mat_list.get(choose_id_new).getMatrix();
-                    for (int i=0;i<r;i++){
-                        for (int j=0;j<c;j++){
-                            System.out.println(balh[i][j]);
-                        }
+                    System.out.println("Choose operation to perform");
+                    System.out.println("1. Perform multiplication.\n" +
+                            "2. Perform division\n");
+                    int el_wise = sc.nextInt();
+                    System.out.println("Choose 1st matrices id");
+                    int id_1 = sc.nextInt();
+                    System.out.println("Choose 2nd matrices id");
+                    int id_2 = sc.nextInt();
+                    el_mat1 = mat_list.get(id_1).getMatrix();
+                    el_mat2 = mat_list.get(id_2).getMatrix();
+                    int r_1 = el_mat1.length;
+                    int r_2 = el_mat2.length;
+                    int c_1 = el_mat1[0].length;
+                    int c_2 = el_mat2[0].length;
+
+                    switch (el_wise) {
+                        case 1:
+                            if ((r_1 == r_2 && c_1 == c_2)) {
+                                el_mul(el_mat1, el_mat2, 0);
+                            } else System.out.println("Wrong dimension");
+                            break;
+                        case 2:
+                            if ((r_1 == r_2 && c_1 == c_2)) {
+                                el_mul(el_mat1, el_mat2, 1);
+                            } else System.out.println("Wrong dimension");
+                            break;
+
                     }
+
                     break;
                 case 7:
                     System.out.println("Enter id of the matrix");
@@ -325,10 +414,47 @@ public class Mat_opearations {
 
                     break;
                 case 8:
+                    int[][] inv_mat;
+                    System.out.println("Enter id of the matrix");
+                    int inv_id = sc.nextInt();
+                    inv_mat = mat_list.get(inv_id).getMatrix();
+
+                    if (inv_mat.length == inv_mat[0].length) {
+                        float[][] temp;
+                        if (mat_list.get(inv_id).typelist.contains("Singular matrix")) {
+                            System.out.println("Error! Singular matrix have no inverse");
+                        } else {
+                            if (mat_list.get(inv_id).typelist.contains("Identity matrix")) {
+                                display(inv_mat, 1);
+                            } else {
+                                temp=mat_list.get(inv_id).inverse();
+                                for (int i = 0; i < temp.length; i++) {
+                                    for (int j = 0; j < temp[0].length; j++) {
+                                        System.out.print(( temp[i][j]) + " ");
+                                    }
+                                    System.out.println();
+                                }
+                            }
+                        }
+                    } else {
+                        System.out.println(" Dimensions error");
+                    }
                     break;
                 case 9:
+                    System.out.println("Enter id of the matrix");
+                    int mean_id = sc.nextInt();
+                    System.out.println("Choose operation to perform");
+                    System.out.println("1. Row-wise mean.\n" +
+                            "2. Column-wise mean\n" +
+                            "3. Overall mean\n");
+                    int mean_no = sc.nextInt();
+                    mat_list.get(mean_id).mean(mean_no);
                     break;
-                case 10:
+                case 10: System.out.println("Enter id of the matrix");
+                    int det_id = sc.nextInt();
+                    System.out.println(mat_list.get(det_id).det());
+
+
                     break;
                 case 11:
                     break;
@@ -360,42 +486,57 @@ public class Mat_opearations {
                             "14. Ones Matrix\n" +
                             "15. Null Matrix");
                     int label_type = sc.nextInt();
-                    String label="";
-                    switch (label_type){
-                        case 1:  label="Rectangular matrix";
+                    String label = "";
+                    switch (label_type) {
+                        case 1:
+                            label = "Rectangular matrix";
                             break;
-                        case 2:  label="Row matrix";
+                        case 2:
+                            label = "Row matrix";
                             break;
-                        case 3:label="Column matrix";
+                        case 3:
+                            label = "Column matrix";
                             break;
-                        case 4:label="Square matrix";
+                        case 4:
+                            label = "Square matrix";
                             break;
-                        case 5:label="Symmetric matrix";
+                        case 5:
+                            label = "Symmetric matrix";
                             break;
-                        case 6:label="Skew Symmetric matrix";
+                        case 6:
+                            label = "Skew Symmetric matrix";
                             break;
-                        case 7:label="Upper matrix";
+                        case 7:
+                            label = "Upper matrix";
                             break;
-                        case 8:label="Lower matrix";
+                        case 8:
+                            label = "Lower matrix";
                             break;
-                        case 9:label="Singular matrix";
+                        case 9:
+                            label = "Singular matrix";
                             break;
-                        case 10:label="Diagonal matrix";
+                        case 10:
+                            label = "Diagonal matrix";
                             break;
-                        case 11:label="Scalar matrix";
+                        case 11:
+                            label = "Scalar matrix";
                             break;
-                        case 12:label="Identity matrix";
+                        case 12:
+                            label = "Identity matrix";
                             break;
-                        case 13:label="Singleton matrix";
+                        case 13:
+                            label = "Singleton matrix";
                             break;
-                        case 14:label="Ones matrix";
+                        case 14:
+                            label = "Ones matrix";
                             break;
-                        case 15:label="Null matrix";
+                        case 15:
+                            label = "Null matrix";
                             break;
 
                     }
 
-                    for (int i=0;i<mat_list.size();i++){
+                    for (int i = 0; i < mat_list.size(); i++) {
                         mat_list.get(i).labelfinder(label);
                     }
 
@@ -431,7 +572,6 @@ public class Mat_opearations {
                 break;
             }
         }
-
         if (diag_0 == 1) {
             for (int i = 0; i < size; i++) {
                 for (int j = 0; j < size; j++) {
@@ -456,7 +596,6 @@ public class Mat_opearations {
 
     public static int triangularity(int[][] mat, int size) {
         int status = 1;//0 nothing 1 upper 2 lower
-
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < i; j++) {
                 if (mat[i][j] != 0) {
@@ -465,6 +604,7 @@ public class Mat_opearations {
                 }
             }
         }
+
         if (status == 0) {
             status = 2;
             for (int i = 0; i < size; i++) {
@@ -476,7 +616,6 @@ public class Mat_opearations {
                 }
             }
         }
-
         return status;
     }
 
@@ -512,37 +651,22 @@ public class Mat_opearations {
         return status;
     }
 
-    static void getCofactor(int mat[][], int temp[][], int p, int q, int n) {
-        int i = 0, j = 0;
-        for (int row = 0; row < n; row++) {
-            for (int col = 0; col < n; col++) {
-                if (row != p && col != q) {
-                    temp[i][j++] = mat[row][col];
-                    if (j == n - 1) {
-                        j = 0;
-                        i++;
-                    }
-                }
+    static void display(int mat[][], int value) {
+        for (int i = 0; i < mat.length; i++) {
+            for (int j = 0; j < mat[0].length; j++) {
+                System.out.println((value * mat[i][j]) + " ");
             }
+            System.out.println();
         }
     }
 
-    static int det(int mat[][], int size) {
-        int D = 0;
-        if (size == 1)
-            return mat[0][0];
-
-        int temp[][] = new int[size][size];
-
-        int sign = 1;
-
-        for (int f = 0; f < size; f++) {
-            getCofactor(mat, temp, 0, f, size);
-            D += sign * mat[0][f] * det(temp, size - 1);
-            sign = -sign;
+    static void Null_mat(int row, int col) {
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                System.out.println("0" + " ");
+            }
+            System.out.println();
         }
-
-        return D;
     }
 
     static int[][] create(int row, int col) {
@@ -600,40 +724,109 @@ public class Mat_opearations {
         return create;
     }
 
-
     static int[][] c_diagonal(int size, int val) {
         int create[][] = new int[size][size];
-        for (int i=0;i<size;i++){
+        for (int i = 0; i < size; i++) {
             int num;
-            if (val==0){
+            if (val == 0) {
                 Random rand = new Random();
-                num= 1 + rand.nextInt(10);
-            }else if (val==1){
-             num=1;
-            }else num=val;
-            create[i][i]=num;
+                num = 1 + rand.nextInt(10);
+            } else if (val == 1) {
+                num = 1;
+            } else num = val;
+            create[i][i] = num;
 
         }
 
-    return create;
+        return create;
     }
 
-
-    static int[] diagconverter(int size,int[][] matrix){
-    int[] diag=new int[size];
-        for (int i=0;i<size;i++){
-            diag[i]=matrix[i][i];
+    static int[] diagconverter(int size, int[][] matrix) {
+        int[] diag = new int[size];
+        for (int i = 0; i < size; i++) {
+            diag[i] = matrix[i][i];
         }
-       return diag;
+        return diag;
     }
+
+    static void add(int[][] m1, int[][] m2, int val) {
+
+        for (int i = 0; i < m1.length; i++) {
+            for (int j = 0; j < m1[0].length; j++) {
+                m1[i][j] += (val * m2[i][j]);
+                System.out.println(m1[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    static void multiply(int[][] m1, int[][] m2) {
+        int[][] temp = new int[m1.length][m2[0].length];
+
+        for (int i = 0; i < m1.length; i++) {
+            for (int j = 0; j < m2[0].length; j++) {
+                for (int k = 0; k < m2.length; k++)
+                    temp[i][j] += m1[i][k] * m2[k][j];
+            }
+        }
+        for (int i = 0; i < temp.length; i++) {
+            for (int j = 0; j < temp[0].length; j++) {
+                System.out.println(temp[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    static void f_multiply(int[][] m1, float[][] m2) {
+        float[][] temp = new float[m1.length][m2[0].length];
+
+        for (int i = 0; i < m1.length; i++) {
+            for (int j = 0; j < m2[0].length; j++) {
+                for (int k = 0; k < m2.length; k++) {
+                    temp[i][j] += (float) m1[i][k] * m2[k][j];
+                }
+            }
+        }
+        for (int i = 0; i < temp.length; i++) {
+            for (int j = 0; j < temp[0].length; j++) {
+                System.out.println(temp[i][j] + " ");
+            }
+        }
+    }
+
+    static void el_mul(int[][] m1, int[][] m2, int val) {
+
+        for (int i = 0; i < m1.length; i++) {
+            for (int j = 0; j < m1[0].length; j++) {
+                if (val == 1) {
+                    System.out.println(m1[i][j] * (1 / m2[i][j]) + " ");
+                } else
+                    System.out.println(m1[i][j] * m2[i][j] + " ");
+            }
+            System.out.println();
+        }
+
+    }
+
+    public static int deter(int[][] matrix,int size){
+        int determinant=0;
+
+        if (size==1) {
+            System.out.println(matrix[0][0]);
+        }else if (size==2){
+            determinant=(matrix[0][0] * matrix[1][1]) - (matrix[0][1] * matrix[1][0]);
+        }else if (size==3){
+            int x = (matrix[1][1] * matrix[2][2]) - (matrix[2][1] * matrix[1][2]);
+            int y = (matrix[1][0] * matrix[2][2]) - (matrix[2][0] * matrix[1][2]);
+            int z = (matrix[1][0] * matrix[2][1]) - (matrix[2][0] * matrix[1][1]);
+
+            determinant = (matrix[0][0] * x)- (matrix[0][1] * y) + (matrix[0][2] * z);
+
+        }
+        return determinant;
+    }
+
+
+
+
 }
-
-
-
-//a-loe-u
-/*for (int i=0;i<row;i++){
-        for (int j=0;j<col;j++){
-        System.out.print(created_mat[i][j]);
-        }
-        System.out.println();
-        } */
