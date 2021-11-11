@@ -2,33 +2,32 @@ package Assignment_3;
 
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class MATRIX {
-    int rows;
-    int columns;
-    int[][] matrix;
-    int[] diag;
-    static int count = 0;
-    int id;
-    ArrayList<String> typelist;
-    int size = 0;
+    protected int rows;
+    protected int columns;
+    protected int[][] matrix;
+    protected int[] diag;
+    protected static int count = 0;
+    protected int id;
+    protected ArrayList<String> typelist;
+    protected int size = 0;
 
-    public MATRIX(int[][] matrix, int rows, int columns) {
+    protected  MATRIX(int[][] matrix, int rows, int columns) {
         this.matrix = new int[rows][columns];
         id = count;
         count++;
         this.matrix = matrix;
     }
 
-    public MATRIX(int[][] matrix, int size) {
+    protected MATRIX(int[][] matrix, int size) {
         this.matrix = new int[size][size];
         id = count;
         count++;
         this.matrix = matrix;
     }
 
-    public MATRIX(int size, int[] matrix) {//for diagonal
+    protected  MATRIX(int size, int[] matrix) {//for diagonal
         this.diag = new int[size];
         this.size = size;
         id = count;
@@ -36,7 +35,7 @@ public class MATRIX {
 
     }
 
-    public void setmat() {
+    protected  void setmat() {
         this.matrix = new int[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -49,7 +48,7 @@ public class MATRIX {
 
     }
 
-    void display() {
+    protected void display() {
     }
 
     public int value(){
@@ -61,24 +60,24 @@ public class MATRIX {
 
 
 
-    public void getType() {
+    protected  void getType() {
         for (int i = 0; i < typelist.size(); i++) {
             System.out.println(typelist.get(i));
         }
     }
 
-    public int[][] getMatrix() {
+    protected  int[][] getMatrix() {
         if (this.matrix == null) {
             setmat();
         }
         return matrix;
     }
 
-    public int getSize() {
+    protected  int getSize() {
         return size;
     }
 
-    public void transpose() {
+    protected  void transpose() {
         if (this.matrix == null) {
             setmat();
         }
@@ -99,7 +98,7 @@ public class MATRIX {
             System.out.println("cant perform on non square matrix");
     }
 
-    public void addtranspose() {
+    protected  void addtranspose() {
 
         if (this.matrix == null) {
             setmat();
@@ -122,13 +121,13 @@ public class MATRIX {
 
     }
 
-    public void labelfinder(String label) {
+    protected  void labelfinder(String label) {
         if (typelist.contains(label)) {
             display();
         }
     }
 
-    public void mean(int r_c) {
+    protected  void mean(int r_c) {
 
         if (this.matrix == null) {
             setmat();
@@ -165,7 +164,7 @@ public class MATRIX {
         }
     }
 
-    public void setMatrix() {
+    protected  void setMatrix() {
         if (this.matrix == null) {
             setmat();
         }
@@ -215,7 +214,7 @@ public class MATRIX {
 
     }
 
-    public int det() {
+    protected  int det() {
         int det = 1;
         if (this.matrix == null) {
             for (int i = 0; i < size; i++) {
@@ -239,7 +238,7 @@ public class MATRIX {
         return det;
     }
 
-    public float[][] inverse() {
+    protected  float[][] inverse() {
         if (this.matrix == null) {
             setmat();
         }

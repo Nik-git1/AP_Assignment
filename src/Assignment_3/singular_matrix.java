@@ -1,7 +1,7 @@
 package Assignment_3;
 
 public class singular_matrix extends square{
-    String type = "Singular matrix";
+    private String type = "Singular matrix";
 
     public singular_matrix(int[][] matrix, int size) {
         super(matrix,size);

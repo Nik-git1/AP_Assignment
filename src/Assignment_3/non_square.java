@@ -16,7 +16,7 @@ public class non_square extends MATRIX{
         typelist.add(type);
     }
 
-    void display(){
+    protected void display(){
         System.out.println("id= "+id);
         for (int k=0;k<typelist.size();k++){
             System.out.println(typelist.get(k));

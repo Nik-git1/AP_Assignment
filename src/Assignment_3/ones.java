@@ -1,8 +1,8 @@
 package Assignment_3;
 
 public class ones extends square{
-    String type = " Ones matrix";
-    String type1 = "Symmetric matrix";
+    private String type = "Ones matrix";
+    private String type1 = "Symmetric matrix";
     public ones(int[][] matrix, int size) {
         super(matrix, size);
         this.matrix=matrix;

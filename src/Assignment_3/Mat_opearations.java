@@ -505,7 +505,7 @@ public class Mat_opearations {
                                 if (mat_list.get(old_id).typelist.contains("Null matrix")) {
                                     Null_mat(r_old, len);
                                 } else
-                                    multiply(op_mat1, scalar_new);
+                                    multiply(old, scalar_new);
                             } else
                                 System.out.println("Dimensions error");
 
@@ -537,6 +537,27 @@ public class Mat_opearations {
                 case 13:
                     break;
                 case 14:
+                    System.out.println("Enter id of the matrix(square)");
+                    int solve_id = sc.nextInt();
+                    System.out.println("Enter id of 2nd matrix(column)");
+                    int solve_id2 =sc.nextInt();
+                    int[][] solve1 =mat_list.get(solve_id).getMatrix();
+                    int[][] solve2 = mat_list.get(solve_id2).getMatrix();
+                    int row1= solve1.length;
+                    int row2= solve2.length;
+
+                    if (row1== row2 ){
+                        float temp[][]=mat_list.get(solve_id).inverse();
+                        for (int i =0 ;i<row1;i++){
+                            float sum=0;
+                            for (int j=0;j<row1;j++){
+                                sum += (float) (temp[i][j] *solve2[j][0]);
+                            }
+                            System.out.println(sum);
+                        }
+                    }else
+                        System.out.println("Wrong dimension");
+
                     break;
                 case 15:
                     System.out.println("Enter matrix label to search");
@@ -824,7 +845,7 @@ public class Mat_opearations {
         for (int i = 0; i < m1.length; i++) {
             for (int j = 0; j < m1[0].length; j++) {
                 m1[i][j] += (val * m2[i][j]);
-                System.out.println(m1[i][j] + " ");
+                System.out.print(m1[i][j] + " ");
             }
             System.out.println();
         }
@@ -841,7 +862,7 @@ public class Mat_opearations {
         }
         for (int i = 0; i < temp.length; i++) {
             for (int j = 0; j < temp[0].length; j++) {
-                System.out.println(temp[i][j] + " ");
+                System.out.print(temp[i][j] + " ");
             }
             System.out.println();
         }
@@ -859,8 +880,9 @@ public class Mat_opearations {
         }
         for (int i = 0; i < temp.length; i++) {
             for (int j = 0; j < temp[0].length; j++) {
-                System.out.println(temp[i][j] + " ");
+                System.out.print(temp[i][j] + " ");
             }
+            System.out.println();
         }
     }
 
@@ -869,9 +891,9 @@ public class Mat_opearations {
         for (int i = 0; i < m1.length; i++) {
             for (int j = 0; j < m1[0].length; j++) {
                 if (val == 1) {
-                    System.out.println(m1[i][j] * (1 / m2[i][j]) + " ");
+                    System.out.print(m1[i][j] * (1 / m2[i][j]) + " ");
                 } else
-                    System.out.println(m1[i][j] * m2[i][j] + " ");
+                    System.out.print(m1[i][j] * m2[i][j] + " ");
             }
             System.out.println();
         }
@@ -895,8 +917,6 @@ public class Mat_opearations {
         }
         return determinant;
     }
-
-
 
 
 }

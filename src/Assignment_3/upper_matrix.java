@@ -1,7 +1,7 @@
 package Assignment_3;
 
 public class upper_matrix extends square{
-    String type = "Upper matrix";
+    private String type = "Upper matrix";
     public upper_matrix(int[][] matrix, int size) {
         super(matrix, size);
         this.matrix=matrix;

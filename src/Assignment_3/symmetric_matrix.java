@@ -1,7 +1,7 @@
 package Assignment_3;
 
 public class symmetric_matrix extends square {
-    String type = "Symmetric matrix";
+    private String type = "Symmetric matrix";
 
     public symmetric_matrix(int[][] matrix, int size) {
         super(matrix, size);
