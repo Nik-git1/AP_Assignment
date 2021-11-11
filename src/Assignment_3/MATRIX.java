@@ -51,14 +51,12 @@ public class MATRIX {
     protected void display() {
     }
 
-    public int value(){
+    protected int value(){
         return this.matrix[0][0];
     }
 
-    void diag_display() {
+    protected void diag_display() {
     }
-
-
 
     protected  void getType() {
         for (int i = 0; i < typelist.size(); i++) {
@@ -279,7 +277,104 @@ public class MATRIX {
     return inv_mat;
 }
 
-}
+    public double[][] multiply(double[][] m2) {
+
+        double[][] temp = new double[matrix.length][m2[0].length];
+
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < m2[0].length; j++) {
+                for (int k = 0; k < m2.length; k++)
+                    temp[i][j] += (double) matrix[i][k] * m2[k][j];
+            }
+        }
+        return temp;
+    }
+
+    public boolean compare(double[][] m1 ,double[][]m2){
+        for (int i=0;i<m1.length;i++){
+            for (int j =0;j<m1[0].length;j++){
+                if (m1[i][j]!=m2[i][j]){
+                    return false;
+                }
+
+            }
+        }
+        return true;
+
+    }
+
+    protected double gcd(double a, double b)
+    { if (a == 0)
+            return b;
+        return gcd(b % a, a);
+    }
+    protected double lcm(double a, double b)
+    {
+        return (a / gcd(a, b)) * b;
+    }
+
+    protected void eigenval(){
+
+
+        if (size==2 ||(rows==2 && columns==2) ){
+
+        double a = (double) matrix[0][0];
+        double b = (double) matrix[0][1];
+        double c = (double) matrix[1][0];
+        double d = (double) matrix[1][1];
+
+        double eigen1 = (double) (((a+d) + Math.sqrt( Math.pow(a-d,2) + 4*b*c))/2);
+        double eigen2 = (double) (((a+d) - Math.sqrt( Math.pow(a-d,2) + 4*b*c))/2);
+
+        System.out.println("Eigen value 1: "+eigen1);
+        System.out.println("Eigen value 1: "+eigen2);
+        double[][] eigenvector1= new double[2][1];
+        double[][] eigenvector2= new double[2][1];
+        double[][] temp = new double[2][1];
+        int flag=0;
+
+        for (double i=-1000;i<=1000;i++){
+            for (double j = -1000;j <= 1000; j++) {
+                    eigenvector1[0][0]=i;
+                    eigenvector1[1][0]=j;
+                    temp[0][0]=eigen1*i;
+                    temp[1][0]=eigen1*j;
+                    if (flag==0){
+                    if (compare(multiply(eigenvector1),temp)){
+                        System.out.println("Eigenvector 1;:" );
+                        double l=lcm(eigenvector1[0][0],eigenvector1[1][0]);
+                        System.out.println(eigenvector1[0][0]/l);
+                        System.out.println(eigenvector1[1][0]/l);
+                        flag++;
+                }
+                    }
+            }
+        }
+        flag=0;
+        for (double i=-1000;i<=1000;i++){
+            for (double j=-1000;j<=1000; j++) {
+                eigenvector2[0][0]=i;
+                eigenvector2[1][0]=j;
+                temp[0][0]=eigen2*i;
+                temp[1][0]=eigen2*j;
+                if (flag==0){
+                    if (compare(multiply(eigenvector2),temp)){
+                        System.out.println("Eigenvector 2:" );
+                        double l=lcm(eigenvector2[0][0],eigenvector2[1][0]);
+                        System.out.println(eigenvector2[0][0]/l);
+                        System.out.println(eigenvector2[1][0]/l);
+                        flag++;
+                    }
+                }
+            }
+        }
+
+
+        }else System.out.println("Choose 2x2 matrix only");
+    }
+    }
+
+
 
 
 

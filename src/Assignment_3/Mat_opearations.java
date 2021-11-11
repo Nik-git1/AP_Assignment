@@ -38,12 +38,14 @@ public class Mat_opearations {
                     int columns = sc.nextInt();
                     int[][] matrix = new int[rows][columns];
 
-                    for (int i = 0; i < rows; i++) {
+
+                 for (int i = 0; i < rows; i++) {
                         for (int j = 0; j < columns; j++) {
                             int ele = sc.nextInt();
                             matrix[i][j] = ele;
                         }
                     }//TAKING MATRIX
+
 
                     if (rows != columns) {
                         if (rows == 1 && columns > rows) {
@@ -151,7 +153,7 @@ public class Mat_opearations {
                     int mat_type = sc.nextInt();
                     System.out.println("Enter no of rows[1 to 3], choose 1 for singleton");
                     int row = sc.nextInt();
-                    System.out.println("Enter no of column[1 to 3],choose 1 for single ton");
+                    System.out.println("Enter no of column[1 to 3], choose 1 for single ton");
                     int col = sc.nextInt();
                     int[][] created_mat = new int[row][col];
                     switch (mat_type) {
@@ -535,6 +537,10 @@ public class Mat_opearations {
 
                     break;
                 case 13:
+                    System.out.println("Enter id of the matrix");
+                    int eigen_id = sc.nextInt();
+                    mat_list.get(eigen_id).eigenval();
+
                     break;
                 case 14:
                     System.out.println("Enter id of the matrix(square)");
