@@ -1,14 +1,24 @@
 package Assignment_4;
 
 public class books implements Comparable<books> {
-   String Title;
-int ISBN;
- int barcode;
+    private String Title;
+    private int ISBN;
+    private int barcode;
+    private int rack;
+    private int slot;
 
     public books(String Title, int ISBN, int barcode) {
         this.Title = Title;
         this.ISBN = ISBN;
         this.barcode = barcode;
+    }
+
+    public void setRack(int rack) {
+        this.rack = rack;
+    }
+
+    public void setSlot(int slot) {
+        this.slot = slot;
     }
 
     public int getISBN() {
@@ -23,6 +33,13 @@ int ISBN;
         return barcode;
     }
 
+    public int getRack() {
+        return rack;
+    }
+
+    public int getSlot() {
+        return slot;
+    }
 
     @Override
     public int compareTo(books o) {
